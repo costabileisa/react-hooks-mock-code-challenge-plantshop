@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-function Search() {
+function Search({ onSearch }) {
+  const [search, setSearch] = useState("");
+
+  function handleSearch(event) {
+    setSearch(event.target.value)
+  }
+
+  useEffect(() => {
+    onSearch(search)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search])
+
   return (
     <div className="searchbar">
       <label htmlFor="search">Search Plants:</label>
@@ -8,7 +19,7 @@ function Search() {
         type="text"
         id="search"
         placeholder="Type a name to search..."
-        onChange={(e) => console.log("Searching...")}
+        onChange={handleSearch}
       />
     </div>
   );
